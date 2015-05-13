@@ -1,0 +1,11 @@
+---
+# tasks file for grafana
+
+- name: install grafana for debian
+  include: install_debian.yml
+  when: ansible_os_family == "Debian"
+
+- name: run service
+  include: service.yml
+
+

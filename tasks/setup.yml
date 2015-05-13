@@ -1,0 +1,27 @@
+---
+
+- name: setup - create grafana group
+  group:
+    name={{ grafana_group }}
+    state=present
+    system=yes
+
+- name: setup - create grafana user
+  user:
+    name={{  grafana_user }}
+    group={{ grafana_group }}
+    system=yes
+    createhome=no
+
+- name: setup - make directories
+  file:
+    state=directory
+    path={{ item }}
+    owner={{ grafana_user }}
+    group={{ grafana_group }}
+    mode=0755
+  with_items:
+    - "{{ grafana_conf_dir }}"
+    - "{{ grafana_log_dir }}"
+
+

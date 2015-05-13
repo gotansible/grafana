@@ -1,0 +1,19 @@
+---
+
+- name: genearte runit run file
+  template:
+    src=run_grafana.j2
+    dest={{ grafana_home_dir }}/run_grafana
+    mode=755
+  notify: restart grafana
+
+
+- name: setup grafana as runit service and start it
+  runit:
+    name: "{{ grafana_service_name }}"
+    enabled: yes
+    state: up
+    timeout: 9 
+    user: "{{ grafana_user }}"
+    command: "{{ grafana_home_dir }}/run_grafana"
+  register: grafana_service_status

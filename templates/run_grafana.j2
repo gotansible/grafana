@@ -1,0 +1,16 @@
+#!/bin/sh
+
+if [ -L $0 ] ; then
+    ME=$(readlink $0)
+else
+    ME=$0
+fi
+DIR=$(dirname $ME)
+
+cd $DIR
+
+if [ -n "{{grafana_max_open_files}}" ]; then
+	ulimit -n {{grafana_max_open_files}}
+fi
+
+{{ grafana_launch_command }}

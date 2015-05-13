@@ -1,0 +1,7 @@
+---
+# handlers file for grafana
+
+- name: restart grafana
+  runit: name={{ grafana_service_name }} enabled=yes state=up timeout=9 action=reload
+  when: not grafana_service_status.restarted
+

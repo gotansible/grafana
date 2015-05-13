@@ -1,0 +1,35 @@
+---
+
+- name: debian - add package verify key
+  apt_key:
+    url: https://packagecloud.io/gpg.key
+    state: present
+
+- name: debian - add repo to apt
+  apt_repository:
+    repo: "{{grafana_package_debian_repo }}"
+    state: present
+
+- name: debian - install grafana from apt
+  apt:
+    name={{ item }}
+    state=present
+    update_cache=yes
+    cache_valid_time=3600
+  with_items:
+    - apt-transport-https
+    - grafana
+     
+#- name: debian - create build dir
+#  file:
+#    state=directory
+#    path={{ grafana_build_dir }}
+#
+#- name: debian - download deb package
+#  get_url:
+#    url={{grafana_package_debian_url  }}
+#    dest={{ grafana_build_dir }}
+#
+#- name: install grafana deb package
+#  apt: deb={{ grafana_build_dir }}/{{ grafana_package_debian_file }}
+

@@ -1,0 +1,29 @@
+---
+# defaults file for grafana
+
+
+grafana_package_debian_repo: deb https://packagecloud.io/grafana/stable/debian/ wheezy main
+
+grafana_build_dir: /tmp/grafana
+grafana_service_name: grafana
+grafana_config_dir: /etc/grafana
+grafana_log_dir: /var/log/grafana
+
+grafana_bin: /usr/sbin/grafana-server
+grafana_data_dir: /var/lib/grafana
+grafana_user: grafana
+grafana_group: grafana
+grafana_home_dir: /usr/share/grafana
+
+grafana_launch_command: "{{ grafana_bin }} --config={{ grafana_config_dir }}/grafana.ini cfg:default.paths.data={{ grafana_data_dir }} cfg:default.paths.logs={{ grafana_log_dir }}"
+grafana_max_open_files: 10000
+#grafana_env_vars:
+#  GRAFANA_USER: "{{ grafana_user }}"
+#  GRAFANA_GROUP: "{{ grafana_group }}"
+#  GRAFANA_HOME: "{{ grafana_home_dir }}"
+#  LOG_DIR: "{{ grafana_log_dir }}"
+#  DATA_DIR: "{{ grafana_data_dir }}"
+#  MAX_OPEN_FILES: "{{grafana_max_open_files}}"
+#  CONF_DIR: "{{ grafana_config_dir }}"
+#  CONF_FILE: "{{ grafana_config_dir }}/grafana.ini"
+#  RESTART_ON_UPGRADE: false
