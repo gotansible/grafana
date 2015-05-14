@@ -5,6 +5,15 @@
     url: https://packagecloud.io/gpg.key
     state: present
 
+- name: debian - install dependency
+  apt:
+    name={{ item }}
+    state=present
+    update_cache=yes
+    cache_valid_time=3600
+  with_items:
+    - apt-transport-https
+
 - name: debian - add repo to apt
   apt_repository:
     repo: "{{grafana_package_debian_repo }}"
@@ -17,7 +26,6 @@
     update_cache=yes
     cache_valid_time=3600
   with_items:
-    - apt-transport-https
     - grafana
      
 #- name: debian - create build dir
