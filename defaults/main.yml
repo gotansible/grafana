@@ -15,6 +15,12 @@ grafana_user: grafana
 grafana_group: grafana
 grafana_home_dir: /usr/share/grafana
 
+grafana_plugin_dir: /usr/share/grafana/public/app/plugins
+grafana_plugin_repo: "https://github.com/grafana/grafana-plugins"
+grafana_plugin_repo_version: master
+grafana_plugin_items:
+  - prometheus
+
 grafana_launch_command: "{{ grafana_bin }} --config={{ grafana_config_dir }}/grafana.ini cfg:default.paths.data={{ grafana_data_dir }} cfg:default.paths.logs={{ grafana_log_dir }}"
 grafana_max_open_files: 10000
 #grafana_env_vars:

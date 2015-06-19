@@ -1,0 +1,31 @@
+---
+
+- name: plugins - make dir
+  file:
+    state=directory
+    path={{ grafana_build_dir }}
+    owner={{ grafana_user }}
+    group={{ grafana_group }}
+
+- name: plugins - depend
+  apt:
+    name=git
+    state=present
+    update_cache=true
+
+- name: plugins - git plugins
+  git:
+    repo={{ grafana_plugin_repo }}
+    version={{ grafana_plugin_repo_version }}
+    depth=1
+    update=yes
+    accept_hostkey=yes
+    dest={{ grafana_build_dir }}
+    force=yes
+    recursive=yes
+
+- name: plugins - move it over
+  shell: sudo mv {{ grafana_build_dir }}/datasources/{{ item }}/ {{ grafana_plugin_dir }}/datasource/
+  args:
+    creates: "{{ grafana_plugin_dir }}/datasource/{{ item }}/datasource.js"
+  with_items: "{{ grafana_plugin_items }}"

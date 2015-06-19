@@ -15,5 +15,5 @@
     state: up
     timeout: 9 
     user: "{{ grafana_user }}"
-    command: "{{ grafana_home_dir }}/run_grafana"
+    command: "{{ grafana_home_dir }}/run_grafana --config={{ grafana_config_dir }}/grafana.ini"
   register: grafana_service_status
