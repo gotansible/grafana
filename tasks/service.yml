@@ -7,12 +7,11 @@
     mode=755
   notify: restart grafana
 
-
 - name: setup grafana as runit service and start it
   runit:
     name: "{{ grafana_service_name }}"
     enabled: yes
-    state: up
+    state: start
     timeout: 9 
     user: "{{ grafana_user }}"
     command: "{{ grafana_home_dir }}/run_grafana --config={{ grafana_config_dir }}/grafana.ini"
